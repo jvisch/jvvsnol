@@ -63,24 +63,44 @@ namespace jvvsnol
 
             const_iterator(const const_iterator &i) : value_(i.value_), ptr_(i.ptr_) {}
 
+            enum class comp_values
+            {
+                equal,
+                ascending,
+                descending
+            };
+
+            template <comp_values c>
+            struct next_func
+            {
+            };
+
             void next()
             {
-                if (value_start <= value_end)
+                constexpr auto c =
+                    (value_start == value_end ? comp_values::equal
+                                              : (value_start < value_end ? comp_values::ascending : comp_values::descending));
+                if (next(next_func<c>()))
                 {
-                    value_ += value_step;
-                    if (value_ > value_end)
-                    {
-                        ptr_ = nullptr;
-                    }
+                    ptr_ = nullptr;
                 }
-                else
-                {
-                    value_ -= value_step;
-                    if (value_ < value_end)
-                    {
-                        ptr_ = nullptr;
-                    }
-                }
+            }
+
+            // start < eind
+            bool next(next_func<comp_values::ascending>)
+            {
+                return ((value_ += value_step) > value_end);
+            }
+            // start == eind
+            bool next(next_func<comp_values::equal>)
+            {
+                value_ += value_step;
+                return true;
+            }
+            // start > eind
+            bool next(next_func<comp_values::descending>)
+            {
+                return ((value_ -= value_step) < value_end);
             }
         };
 
