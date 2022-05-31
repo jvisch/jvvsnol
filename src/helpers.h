@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "number_generator.h"
+#include "operand.h"
 
 namespace jvvsnol
 {
@@ -14,13 +15,26 @@ namespace jvvsnol
     {
         auto begin = rhs.begin();
         os << '[' << (*begin);
-        ++begin;
-        for (; begin != rhs.end(); ++begin)
+        while ((++begin) != rhs.end())
         {
             os << ',' << (*begin);
         }
         os << ']';
         return os;
+    }
+
+    template <typename T_iter>
+    std::ostream &operator<<(std::ostream &os, const class operand<T_iter> &rhs)
+    {
+        auto begin = rhs.begin();
+        os << '[' << (*begin);
+        while ((++begin) != rhs.end())
+        {
+            os << ',' << (*begin);
+        }
+        os << ']';
+        return os;
+
     }
 }
 

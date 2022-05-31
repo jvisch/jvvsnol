@@ -1,22 +1,20 @@
 #pragma once
-#ifndef NUMBER_GENERATOR_H__
-#define NUMBER_GENERATOR_H__
+#ifndef JVVSNOL_NUMBER_GENERATOR_H__
+#define JVVSNOL_NUMBER_GENERATOR_H__
 
 namespace jvvsnol
 {
     template <typename T, T value_start, T value_end, T value_step = 1>
     struct number_generator
     {
-        typedef T value_type;
-        typedef T &reference;
-        typedef const T &const_reference;
-        typedef T *pointer;
-        typedef const T *const_pointer;
-
         class const_iterator
         {
         public:
             typedef T value_type;
+            typedef value_type& reference;
+            typedef const value_type& const_reference;
+            typedef value_type* pointer;
+            typedef const value_type* const_pointer;
 
             explicit const_iterator(const number_generator *ptr) : value_(value_start), ptr_(ptr) {}
             const_iterator(const const_iterator &i) : value_(i.value_), ptr_(i.ptr_) {}
@@ -140,4 +138,4 @@ namespace jvvsnol
     };
 }
 
-#endif // NUMBER_GENERATOR_H__
+#endif // JVVSNOL_NUMBER_GENERATOR_H__

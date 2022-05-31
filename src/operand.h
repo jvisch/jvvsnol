@@ -1,18 +1,31 @@
+#pragma once
+
+#ifndef JVVSNOL_OPERAND_H__
+#define JVVSNOL_OPERAND_H__
+
+
 namespace jvvsnol
 {
-    template <typename T>
-    class modulo
+    template <typename T_iter>
+    class operand
     {
     public:
-        modulo(const T &begin, const T &end) : begin_(begin), end_(end) {}
+        operand(const T_iter &begin, const T_iter &end) : begin_(begin), end_(end) {}
 
-        modulo(const modulo &) = delete;
-        modulo &operator=(const modulo &rhs) = delete;
+        operand(const operand &) = delete;
+        operand &operator=(const operand &rhs) = delete;
 
         class const_iterator
         {
         public:
-            const_iterator(const T &iterator) : iterator_(iterator) {
+            typedef T_iter::value_type value_type;
+            typedef value_type &reference;
+            typedef const value_type &const_reference;
+            typedef value_type *pointer;
+            typedef const value_type *const_pointer;
+
+            explicit const_iterator(const T_iter &iterator) : iterator_(iterator)
+            {
                 set_value();
             }
 
@@ -20,7 +33,7 @@ namespace jvvsnol
 
             void set_value()
             {
-                value_ = ((*iterator_) % 2);
+                value_ = ((*iterator_) * 2);
             }
 
             const_iterator &operator=(const const_iterator &rhs)
@@ -56,19 +69,19 @@ namespace jvvsnol
                 return !operator==(rhs);
             }
 
-            const T::value_type& operator*() const // values of the range may not be changed
+            const_reference operator*() const // values of the range may not be changed
             {
                 return value_;
             }
 
-            const T::value_type* operator->() const // values of the range may not be changed
+            const_pointer operator->() const // values of the range may not be changed
             {
                 return &value_;
             }
 
         private:
-            T iterator_;
-            T::value_type value_;
+            T_iter iterator_;
+            value_type value_;
 
             void next()
             {
@@ -98,8 +111,10 @@ namespace jvvsnol
         }
 
     private:
-        T begin_;
-        const T end_;
+        T_iter begin_;
+        const T_iter end_;
     };
 
 }
+
+#endif // JVVSNOL_OPERAND_H__
