@@ -16,9 +16,20 @@ namespace jvvsnol
         class const_iterator
         {
         public:
-            explicit const_iterator(const number_generator *ptr) : value_(value_start), ptr_(ptr) {}
+            typedef T value_type;
 
-            const_iterator &operator=(const const_iterator &rhs) = delete;
+            explicit const_iterator(const number_generator *ptr) : value_(value_start), ptr_(ptr) {}
+            const_iterator(const const_iterator &i) : value_(i.value_), ptr_(i.ptr_) {}
+
+            const_iterator &operator=(const const_iterator &rhs)
+            {
+                if (this != &rhs)
+                {
+                    value_ = rhs.value_;
+                    ptr_ = rhs.ptr_;
+                }
+                return *this;
+            }
 
             const_iterator &operator++() // ++iter
             {
@@ -64,8 +75,6 @@ namespace jvvsnol
             value_type value_;
             const number_generator *ptr_; // if nullptr, out of range
 
-            const_iterator(const const_iterator &i) : value_(i.value_), ptr_(i.ptr_) {}
-
             enum class comp_values
             {
                 equal,
@@ -108,7 +117,7 @@ namespace jvvsnol
                 return (value_ < value_end);
             }
         };
-        
+
         const_iterator begin() const
         {
             return cbegin(); // Generator values ar immutable
