@@ -1,3 +1,7 @@
+#pragma once
+#ifndef NUMBER_GENERATOR_H__
+#define NUMBER_GENERATOR_H__
+
 namespace jvvsnol
 {
     template <typename T, T value_start, T value_end, T value_step = 1>
@@ -104,7 +108,7 @@ namespace jvvsnol
                 return (value_ < value_end);
             }
         };
-
+        
         const_iterator begin() const
         {
             return cbegin(); // Generator values ar immutable
@@ -126,3 +130,5 @@ namespace jvvsnol
         }
     };
 }
+
+#endif // NUMBER_GENERATOR_H__
