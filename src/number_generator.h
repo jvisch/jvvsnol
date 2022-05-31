@@ -1,6 +1,5 @@
 namespace jvvsnol
 {
-
     template <typename T, T value_start, T value_end, T value_step = 1>
     struct number_generator
     {
@@ -89,7 +88,8 @@ namespace jvvsnol
             // start < eind
             bool next(next_func<comp_values::ascending>)
             {
-                return ((value_ += value_step) > value_end);
+                value_ += value_step;
+                return (value_ > value_end);
             }
             // start == eind
             bool next(next_func<comp_values::equal>)
@@ -100,7 +100,8 @@ namespace jvvsnol
             // start > eind
             bool next(next_func<comp_values::descending>)
             {
-                return ((value_ -= value_step) < value_end);
+                value_ -= value_step;
+                return (value_ < value_end);
             }
         };
 
