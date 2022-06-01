@@ -18,7 +18,7 @@ namespace jvvsnol
         class const_iterator
         {
         public:
-            typedef T_iter::value_type value_type;
+            typedef typename T_iter::value_type value_type;
             typedef value_type &reference;
             typedef const value_type &const_reference;
             typedef value_type *pointer;
