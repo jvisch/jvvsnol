@@ -13,32 +13,19 @@ int main(int, char **)
 
     std::cout << a << std::endl;
 
-    jvvsnol::operand m(a.begin(), a.end());
+    auto f1 = [](decltype(a)::value_type arg) { return arg * 2;};
+
+    jvvsnol::operand m(a.begin(), a.end(), f1);
     std::cout << m << std::endl;
 
-    jvvsnol::operand n(m.begin(), m.end());
+    auto f2 = [](decltype(a)::value_type arg) { return arg + 1;};
+
+
+    jvvsnol::operand n(m.begin(), m.end(), f2);
     std::cout << n << std::endl;
 
     
-    // std::cout << std::endl;
-    // for(auto& x : m)
-    // {
-    //     std::cout << x << " - ";
-    // }
-    // std::cout << std::endl;
 
-    // jvvsnol::operand n(m.begin(), m.end());
-    // for(auto& x : n)
-    // {
-    //     std::cout << x << " - ";
-    // }
-    std::cout << std::endl;
-
-    jvvsnol::number_generator<int, 8, 5> z;
-    std::cout << z << std::endl;
-    
-    jvvsnol::number_generator<int, 8, 8> q;
-    std::cout << q << std::endl;
     
     return 0;
 }

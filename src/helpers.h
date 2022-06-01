@@ -23,8 +23,8 @@ namespace jvvsnol
         return os;
     }
 
-    template <typename T_iter>
-    std::ostream &operator<<(std::ostream &os, const class operand<T_iter> &rhs)
+    template <typename T_iter, typename T_func>
+    std::ostream &operator<<(std::ostream &os, const class operand<T_iter, T_func> &rhs)
     {
         auto begin = rhs.begin();
         os << '[' << (*begin);

@@ -7,10 +7,12 @@ namespace jvvsnol
     template <typename T, T value_start, T value_end, T value_step = 1>
     struct number_generator
     {
+        typedef T value_type;
+
         class const_iterator
         {
         public:
-            typedef T value_type;
+            typedef number_generator::value_type value_type;
             typedef value_type& reference;
             typedef const value_type& const_reference;
             typedef value_type* pointer;
